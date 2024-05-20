@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play-to-Earn</title>
+    <style>
+        .coin {
+            width: 100px;
+            height: 100px;
+            background: gold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="coin" id="coin">1</div>
+    <p>Монеты: <span id="coinCount">0</span></p>
+
+    <script>
+        let coinCount = 0;
+        document.getElementById('coin').addEventListener('click', () => {
+            coinCount++;
+            document.getElementById('coinCount').innerText = coinCount;
+            // Отправка данных на сервер
+            fetch('/updateCoins', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ coins: coinCount })
+            });
+        });
+    </script>
+</body>
+</html>
